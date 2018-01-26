@@ -1,32 +1,153 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<style type="text/css">
-   html { height: 100% }
-   body { height: 100%; margin: 0; padding: 0 }
-   #map-canvas { height: 100% }
-</style>
-<script type="text/javascript"
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHf1EN9mtDoqZVOPR17TVzgc4YptpNMLw"></script>
-<script type="text/javascript">
-   function initialize() 
-   {
- 	  var mapOptions = {
-	  center: new google.maps.LatLng(50.833001, -0.180321),
-	  zoom: 20, 
-	  };
-var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-   }
-google.maps.event.addDomListener(window, 'load', initialize);
- </script>
-	<script>
-var marker = new google.maps.Marker({50.833001, -0.180321: myCenter});
 
-marker.setMap(map);
-	</script>
- </head>
- <body>
- <div id="map-canvas"></div>
- </body>
- </html> 
+<!DOCTYPE html>
+
+
+
+
+<html>
+
+
+<head>
+
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+
+<style type="text/css">
+
+
+  html { height: 100% }
+
+
+  body { height: 100%; margin: 0; padding: 0 }
+
+
+  #map-canvas { height: 100% }
+
+
+</style>
+
+
+<script type="text/javascript"
+
+
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHf1EN9mtDoqZVOPR17TVzgc4YptpNMLw"></script>
+
+
+
+
+
+
+
+<div id="map" style="height: 400px; width: 100%;">
+
+
+</div>
+
+
+<script type="text/javascript">
+
+
+   var locations = [
+
+
+
+
+
+
+     ['37 Portland Road', 50.833001, -0.180321, 4],
+
+
+     ['First Base', 50.826525, -0.153015, 5],
+
+
+     ['Clock Tower Sanctuary', 50.823182, -0.141793, 3]
+
+
+   ];
+
+
+
+
+
+
+   var map = new google.maps.Map(document.getElementById('map'), {
+
+
+     zoom: 15,
+
+
+     center: new google.maps.LatLng(50.8225,-0.13792 ),
+
+
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+
+
+   });
+
+
+
+
+
+
+   var infowindow = new google.maps.InfoWindow();
+
+
+
+
+
+
+   var marker, i;
+
+
+
+
+
+
+   for (i = 0; i < locations.length; i++) {
+
+
+     marker = new google.maps.Marker({
+
+
+       position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+
+
+       map: map
+
+
+     });
+
+
+
+
+
+
+     google.maps.event.addListener(marker, 'click', (function(marker, i) {
+
+
+       return function() {
+
+
+         infowindow.setContent(locations[i][0]);
+
+
+         infowindow.open(map, marker);
+
+
+       }
+
+
+     })(marker, i));
+
+
+   }
+
+
+ </script>
+
+
+</body>
+
+
+</html>
